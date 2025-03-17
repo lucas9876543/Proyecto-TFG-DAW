@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokedex</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Pokedex</h1>
+        <div class="search-container">
+            <input type="text" id="search-input" placeholder="Buscar Pokémon...">
+            <select id="type-filter">
+                <option value="">Todos los tipos</option>
+                <!-- Los tipos se llenarán dinámicamente con JavaScript -->
+            </select>
+            <select id="generation-filter">
+                <!-- Las generaciones se llenarán dinámicamente con JavaScript -->
+            </select>
+        </div>
+    </header>
+
+    <main>
+        <div id="pokedex-container" class="pokedex-grid">
+            <!-- Aquí se cargarán las tarjetas de los Pokémon -->
+        </div>
+    </main>
+
+    <!-- Modal para mostrar detalles del Pokémon -->
+    <div id="pokemon-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div id="modal-pokemon-info"></div>
+            <button id="prev-pokemon">Anterior</button>
+            <button id="next-pokemon">Siguiente</button>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+    <script src="filters.js"></script>
+    <script src="modal.js"></script>
+</body>
+</html>
