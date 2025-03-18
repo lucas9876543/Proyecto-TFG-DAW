@@ -18,12 +18,11 @@ async function fetchPokemon(generation) {
     pokedexContainer.innerHTML = ""; // Limpiar el contenedor antes de cargar nuevos Pokémon
 
     const range = generationRanges[generation];
-    const allPokemon = [];
-    for (let i = range.start; i <= range.end; i++) {
-        const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${i}`);
-        const data = await response.json();
-        allPokemon.push(data);
-    }
+    const pokemonIds = Array.from({ length: range.end - range.start + 1 }, (_, i) => range.start + i);
+
+    // Hacer todas las solicitudes en paralelo
+    const pokemonPromises = pokemonIds.map(id => fetch(`https://pokeapi.co/api/v2/pokemon/${id}`).then(response => response.json()));
+    const allPokemon = await Promise.all(pokemonPromises);
 
     // Ordenar los Pokémon por su ID
     allPokemon.sort((a, b) => a.id - b.id);
@@ -39,6 +38,14 @@ function createPokemonCard(pokemon) {
     card.classList.add(pokemon.types[0].type.name); // Agregar clase del tipo
     card.dataset.id = pokemon.id; // Agregar el ID del Pokémon
     card.dataset.types = pokemon.types.map(type => type.type.name).join(","); // Agregar los tipos del Pokémon
+
+    // Establecer colores para el fondo diagonal si tiene dos tipos
+    if (pokemon.types.length > 1) {
+        const type1 = pokemon.types[0].type.name;
+        const type2 = pokemon.types[1].type.name;
+        card.style.setProperty("--type1-color", getTypeColor(type1));
+        card.style.setProperty("--type2-color", getTypeColor(type2));
+    }
 
     const image = document.createElement("img");
     image.src = pokemon.sprites.front_default;
