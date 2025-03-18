@@ -26,18 +26,74 @@ function updateModalContent(pokemon) {
     modalContent.className = "modal-content"; // Resetear clases
     modalContent.classList.add(pokemon.types[0].type.name); // Agregar clase del tipo
 
+    // Establecer colores para el fondo diagonal si tiene dos tipos
+    if (pokemon.types.length > 1) {
+        const type1 = pokemon.types[0].type.name;
+        const type2 = pokemon.types[1].type.name;
+        modalContent.style.setProperty("--type1-color", getTypeColor(type1));
+        modalContent.style.setProperty("--type2-color", getTypeColor(type2));
+        modalContent.setAttribute("data-types", `${type1},${type2}`);
+    } else {
+        // Si tiene un solo tipo, establecer solo el primer color
+        const type1 = pokemon.types[0].type.name;
+        modalContent.style.setProperty("--type1-color", getTypeColor(type1));
+        modalContent.removeAttribute("data-types");
+    }
+
+    // Crear las barras de stats
+    const statsHTML = pokemon.stats.map(stat => `
+        <div class="stat-bar-container">
+            <div class="stat-bar-label">${stat.stat.name.toUpperCase()}</div>
+            <div class="stat-bar">
+                <div class="stat-bar-progress" style="width: ${(stat.base_stat / 255) * 100}%;"></div>
+            </div>
+            <span class="stat-bar-value">${stat.base_stat}</span>
+        </div>
+    `).join("");
+
+    // Crear los tipos de Pokémon
+    const typesHTML = pokemon.types.map(type => `
+        <span class="type-badge ${type.type.name}">${type.type.name.toUpperCase()}</span>
+    `).join("");
+
     // Mostrar más información en el modal
     modalInfo.innerHTML = `
         <h2>${pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}</h2>
         <img src="${pokemon.sprites.front_default}" alt="${pokemon.name}">
         <p>Altura: ${pokemon.height / 10} m</p>
         <p>Peso: ${pokemon.weight / 10} kg</p>
-        <p>HP: ${pokemon.stats[0].base_stat}</p>
-        <p>Ataque: ${pokemon.stats[1].base_stat}</p>
-        <p>Defensa: ${pokemon.stats[2].base_stat}</p>
-        <p>Velocidad: ${pokemon.stats[5].base_stat}</p>
-        <p>Tipos: ${pokemon.types.map(type => type.type.name).join(", ")}</p>
+        <div class="types-container">
+            ${typesHTML}
+        </div>
+        <div class="stats-container">
+            ${statsHTML}
+        </div>
     `;
+}
+
+// Función para obtener el color basado en el tipo de Pokémon
+function getTypeColor(type) {
+    const typeColors = {
+        fire: "#EE8130",
+        water: "#6390F0",
+        grass: "#7AC74C",
+        electric: "#F7D02C",
+        ground: "#E2BF65",
+        rock: "#B6A136",
+        fairy: "#D685AD",
+        poison: "#A33EA1",
+        bug: "#A6B91A",
+        dragon: "#6F35FC",
+        psychic: "#F95587",
+        flying: "#A98FF3",
+        fighting: "#C22E28",
+        normal: "#A8A77A",
+        ghost: "#735797",
+        ice: "#96D9D6",
+        steel: "#B7B7CE",
+        dark: "#705746",
+    };
+    return typeColors[type] || "#F5F5F5";
 }
 
 // Función para cerrar el modal
