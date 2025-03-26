@@ -1,15 +1,19 @@
+// Elementos del DOM
 const searchInput = document.getElementById("search-input");
 const typeFilter = document.getElementById("type-filter");
 const generationFilter = document.getElementById("generation-filter");
 
-// Llenar el desplegable de tipos (excluyendo "stellar" y "unknown")
+// Variable para almacenar la generación actual
+let currentGeneration = 1;
+
+// Llenar el desplegable de tipos
 async function fetchTypes() {
     const response = await fetch("https://pokeapi.co/api/v2/type/");
     const data = await response.json();
     const excludedTypes = ["stellar", "unknown"];
     const types = data.results
         .map(type => type.name)
-        .filter(type => !excludedTypes.includes(type)); // Filtramos tipos no deseados
+        .filter(type => !excludedTypes.includes(type));
 
     types.forEach(type => {
         const option = document.createElement("option");
@@ -19,7 +23,7 @@ async function fetchTypes() {
     });
 }
 
-// Llenar el desplegable de generaciones (sin cambios)
+// Llenar el desplegable de generaciones
 async function fetchGenerations() {
     const response = await fetch("https://pokeapi.co/api/v2/generation/");
     const data = await response.json();
@@ -31,40 +35,10 @@ async function fetchGenerations() {
         option.textContent = `Generación ${index + 1}`;
         generationFilter.appendChild(option);
     });
-    generationFilter.value = 1;
+    generationFilter.value = currentGeneration;
 }
 
-// Función para cargar Pokémon con el tipo seleccionado
-async function fetchPokemon(generation) {
-    pokedexContainer.innerHTML = "";
-    const range = generationRanges[generation];
-    const pokemonIds = Array.from({ length: range.end - range.start + 1 }, (_, i) => range.start + i);
-
-    const pokemonPromises = pokemonIds.map(id => fetch(`https://pokeapi.co/api/v2/pokemon/${id}`).then(response => response.json()));
-    const allPokemon = await Promise.all(pokemonPromises);
-    allPokemon.sort((a, b) => a.id - b.id);
-
-    // Filtrar por tipo si hay uno seleccionado
-    const selectedType = typeFilter.value;
-    const filteredPokemon = selectedType 
-        ? allPokemon.filter(pokemon => pokemon.types.some(type => type.type.name === selectedType))
-        : allPokemon;
-
-    filteredPokemon.forEach(pokemon => createPokemonCard(pokemon));
-}
-
-// Event listeners (actualizados)
-searchInput.addEventListener("input", filterPokemon);
-typeFilter.addEventListener("change", () => {
-    const selectedGeneration = generationFilter.value;
-    fetchPokemon(selectedGeneration); // Forzar recarga con el tipo seleccionado
-});
-generationFilter.addEventListener("change", () => {
-    const selectedGeneration = generationFilter.value;
-    fetchPokemon(selectedGeneration); // Mantiene el tipo seleccionado
-});
-
-// Función de filtrado (sin cambios)
+// Función para filtrar Pokémon
 function filterPokemon() {
     const searchTerm = searchInput.value.toLowerCase();
     const selectedType = typeFilter.value;
@@ -79,5 +53,19 @@ function filterPokemon() {
     });
 }
 
+// Función para aplicar ambos filtros (generación y tipo)
+function applyFilters() {
+    fetchPokemon(currentGeneration);
+}
+
+// Event listeners
+searchInput.addEventListener("input", filterPokemon);
+typeFilter.addEventListener("change", applyFilters);
+generationFilter.addEventListener("change", () => {
+    currentGeneration = generationFilter.value;
+    applyFilters();
+});
+
+// Inicialización
 fetchTypes();
 fetchGenerations();
