@@ -79,6 +79,27 @@ function updateModalContent(pokemon) {
             ${statsHTML}
         </div>
     `;
+
+    const starBtn = document.createElement('button');
+starBtn.classList.add('modal-star');
+starBtn.innerHTML = '★';
+starBtn.style.color = isFavorite(pokemon.id) ? '#FFD700' : '#000';
+modalContent.appendChild(starBtn);
+
+starBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const isNowFavorite = toggleFavorite(pokemon.id);
+    starBtn.style.color = isNowFavorite ? '#FFD700' : '#000';
+    
+    // Actualizar estrella en la tarjeta si está visible
+    const card = document.querySelector(`.pokemon-card[data-id="${pokemon.id}"]`);
+    if (card) {
+        const cardStar = card.querySelector('.star-btn');
+        if (cardStar) {
+            cardStar.style.color = isNowFavorite ? '#FFD700' : '#000';
+        }
+    }
+});
 }
 
 // Navegación entre Pokémon (¡CORREGIDO!)

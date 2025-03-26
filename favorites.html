@@ -3,27 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pokedex</title>
+    <title>Pokémon Favoritos</title>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/favorites.css">
 </head>
 <body>
     <header>
-        <h1>Pokedex</h1>
+        <h1>Pokémon Favoritos</h1>
         <div class="search-container">
             <input type="text" id="search-input" placeholder="Buscar Pokémon...">
             <select id="type-filter">
                 <option value="">Todos los tipos</option>
             </select>
-            <select id="generation-filter">
-            </select>
-            <button id="favorites-btn">⭐ Favoritos</button>
+            <button id="home-btn">🏠 Inicio</button>
         </div>
     </header>
 
     <main>
-        <div id="pokedex-container" class="pokedex-grid">
-        </div>
+        <div id="pokedex-container" class="pokedex-grid"></div>
     </main>
 
     <div id="pokemon-modal" class="modal">
@@ -35,9 +32,8 @@
         </div>
     </div>
 
-    <script src="js/filters.js"></script>
-    <script src="js/main.js"></script>
-    <script src="js/modal.js"></script>
     <script src="js/favorites.js"></script>
+    <script src="js/favorites-main.js"></script>
+    <script src="js/modal.js"></script>
 </body>
 </html>

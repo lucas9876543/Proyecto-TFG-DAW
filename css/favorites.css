@@ -1,0 +1,69 @@
+/* Botón de favoritos */
+#favorites-btn {
+    background-color: #FFD700;
+    color: #000;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s;
+    margin-left: 10px;
+}
+
+#favorites-btn:hover {
+    background-color: #FFC000;
+    transform: scale(1.05);
+}
+
+/* Botón de inicio */
+#home-btn {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s;
+    margin-left: 10px;
+}
+
+#home-btn:hover {
+    background-color: #45a049;
+    transform: scale(1.05);
+}
+
+/* Estrella en tarjetas */
+.star-btn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #000;
+    z-index: 1;
+}
+
+.star-btn.favorite {
+    color: #FFD700;
+}
+
+/* Modal estrella */
+.modal-star {
+    position: absolute;
+    top: 10px;
+    right: 40px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #000;
+    z-index: 2;
+}
+
+.modal-star.favorite {
+    color: #FFD700;
+}
