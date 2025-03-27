@@ -7,26 +7,26 @@ const nextPokemonBtn = document.getElementById("next-pokemon");
 
 // Variables de estado
 let currentPokemonIndex = 0;
-let currentPokemonList = []; // Todos los Pokémon cargados
-let filteredPokemonList = []; // Pokémon visibles (filtrados por tipo/búsqueda)
+let currentPokemonList = [];
+let filteredPokemonList = [];
 
 // Función para abrir el modal
 function openModal(pokemon) {
     modal.style.display = "flex";
-    filteredPokemonList = getVisiblePokemonList(); // Actualizar lista filtrada
+    filteredPokemonList = getVisiblePokemonList();
     currentPokemonIndex = filteredPokemonList.findIndex(p => p.id === pokemon.id);
     updateModalContent(pokemon);
 }
 
-// Obtener la lista de Pokémon VISIBLES (filtrados)
+// Obtener la lista de Pokémon VISIBLES
 function getVisiblePokemonList() {
     const visibleCards = Array.from(document.querySelectorAll('.pokemon-card')).filter(card => 
-        card.style.display !== "none" // Solo tarjetas visibles
+        card.style.display !== "none"
     );
     return visibleCards.map(card => {
         const pokemonId = parseInt(card.dataset.id);
         return currentPokemonList.find(p => p.id === pokemonId);
-    }).filter(p => p !== undefined); // Eliminar undefined
+    }).filter(p => p !== undefined);
 }
 
 // Actualizar el contenido del modal
@@ -45,6 +45,7 @@ function updateModalContent(pokemon) {
         modalContent.style.setProperty("--type2-color", getTypeColor(type2));
         modalContent.setAttribute("data-types", `${type1},${type2}`);
     } else {
+        // Asegurar que Pokémon con un solo tipo tengan su color
         const type1 = pokemon.types[0].type.name;
         modalContent.style.setProperty("--type1-color", getTypeColor(type1));
         modalContent.removeAttribute("data-types");
@@ -81,28 +82,28 @@ function updateModalContent(pokemon) {
     `;
 
     const starBtn = document.createElement('button');
-starBtn.classList.add('modal-star');
-starBtn.innerHTML = '★';
-starBtn.style.color = isFavorite(pokemon.id) ? '#FFD700' : '#000';
-modalContent.appendChild(starBtn);
+    starBtn.classList.add('modal-star');
+    starBtn.innerHTML = '★';
+    starBtn.style.color = isFavorite(pokemon.id) ? '#FFD700' : '#000';
+    modalContent.appendChild(starBtn);
 
-starBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    const isNowFavorite = toggleFavorite(pokemon.id);
-    starBtn.style.color = isNowFavorite ? '#FFD700' : '#000';
-    
-    // Actualizar estrella en la tarjeta si está visible
-    const card = document.querySelector(`.pokemon-card[data-id="${pokemon.id}"]`);
-    if (card) {
-        const cardStar = card.querySelector('.star-btn');
-        if (cardStar) {
-            cardStar.style.color = isNowFavorite ? '#FFD700' : '#000';
+    starBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isNowFavorite = toggleFavorite(pokemon.id);
+        starBtn.style.color = isNowFavorite ? '#FFD700' : '#000';
+        
+        // Actualizar estrella en la tarjeta si está visible
+        const card = document.querySelector(`.pokemon-card[data-id="${pokemon.id}"]`);
+        if (card) {
+            const cardStar = card.querySelector('.star-btn');
+            if (cardStar) {
+                cardStar.style.color = isNowFavorite ? '#FFD700' : '#000';
+            }
         }
-    }
-});
+    });
 }
 
-// Navegación entre Pokémon (¡CORREGIDO!)
+// Navegación entre Pokémon
 prevPokemonBtn.addEventListener("click", () => {
     if (filteredPokemonList.length === 0) return;
     currentPokemonIndex = (currentPokemonIndex - 1 + filteredPokemonList.length) % filteredPokemonList.length;
@@ -123,11 +124,11 @@ closeModalBtn.addEventListener("click", () => {
 // Función para obtener color según el tipo
 function getTypeColor(type) {
     const typeColors = {
-        fire: "#EE8130", water: "#6390F0", grass: "#7AC74C", electric: "#F7D02C",
-        ground: "#E2BF65", rock: "#B6A136", fairy: "#D685AD", poison: "#A33EA1",
-        bug: "#A6B91A", dragon: "#6F35FC", psychic: "#F95587", flying: "#A98FF3",
-        fighting: "#C22E28", normal: "#A8A77A", ghost: "#735797", ice: "#96D9D6",
-        steel: "#B7B7CE", dark: "#705746"
+        fire: "#FF6B6B", water: "#4D96FF", grass: "#6BCB77", electric: "#FFD93D",
+        ground: "#E4A444", rock: "#A38C21", fairy: "#FF9F9F", poison: "#9F5F80",
+        bug: "#9BBF30", dragon: "#6F35FC", psychic: "#FF6B9E", flying: "#A890F0",
+        fighting: "#C03028", normal: "#A8A878", ghost: "#705898", ice: "#98D8D8",
+        steel: "#B8B8D0", dark: "#705848"
     };
     return typeColors[type] || "#F5F5F5";
 }

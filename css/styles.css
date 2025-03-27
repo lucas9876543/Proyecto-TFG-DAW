@@ -1,102 +1,104 @@
-/* styles.css - Versión final sin conflictos con modal */
+/* styles.css - Versión mejorada */
 
-/* ----- RESET Y ESTILOS BASE ----- */
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f8f9fa;
+/* ----- FUENTES Y RESET ----- */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+* {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    color: #333;
 }
 
-/* ----- HEADER RESPONSIVE ----- */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f5f7fa;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* ----- HEADER MODERNO ----- */
 header {
     background: linear-gradient(135deg, #e74c3c, #c0392b);
     color: white;
-    padding: 15px 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    gap: 12px;
+    padding: 1.5rem 2rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
 h1 {
-    margin: 0;
-    font-size: 1.8rem;
+    font-size: 2.2rem;
     font-weight: 700;
     text-align: center;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+    margin-bottom: 1rem;
+    letter-spacing: 1px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .search-container {
     display: flex;
-    flex-direction: column;
-    gap: 10px;
-    width: 100%;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
     max-width: 1200px;
+    margin: 0 auto;
 }
 
-/* ----- FILTROS MODERNOS ----- */
-.filters-container {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    width: 100%;
-}
-
+/* ----- ELEMENTOS DE FORMULARIO ----- */
 input, select {
-    padding: 12px 15px;
+    padding: 0.8rem 1.2rem;
     border: none;
-    border-radius: 8px;
+    border-radius: 50px;
     font-size: 1rem;
-    background-color: white;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    background-color: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
-    width: 100%;
+    min-width: 200px;
+    font-family: 'Poppins', sans-serif;
 }
 
 input:focus, select:focus {
     outline: none;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
-    border: 2px solid #e74c3c;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
 }
 
 select {
     appearance: none;
     background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23333'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
     background-repeat: no-repeat;
-    background-position: right 12px center;
-    background-size: 14px;
-    padding-right: 35px;
-    cursor: pointer;
+    background-position: right 15px center;
+    background-size: 12px;
+    padding-right: 2.5rem;
 }
 
-/* ----- BOTONES MEJORADOS ----- */
+/* ----- BOTONES ----- */
 button {
-    padding: 12px 20px;
+    padding: 0.8rem 1.5rem;
     border: none;
-    border-radius: 8px;
+    border-radius: 50px;
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
+    gap: 0.5rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 #favorites-btn {
     background-color: #FFD700;
-    color: #000;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    color: #333;
 }
 
 #favorites-btn:hover {
     background-color: #FFC000;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
 #home-btn {
@@ -106,60 +108,64 @@ button {
 
 #home-btn:hover {
     background-color: #27ae60;
-    transform: translateY(-2px);
+    transform: translateY(-3px);
 }
 
-/* ----- POKEDEX GRID RESPONSIVE ----- */
+/* ----- GRID DE POKEMON ----- */
 .pokedex-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 20px;
-    padding: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 1.5rem;
+    padding: 2rem;
     max-width: 1400px;
     margin: 0 auto;
 }
 
 @media (max-width: 768px) {
     .pokedex-grid {
-        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-        gap: 15px;
-        padding: 15px;
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: 1.2rem;
+        padding: 1.5rem;
     }
 }
 
 @media (max-width: 480px) {
     .pokedex-grid {
-        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-        gap: 12px;
-        padding: 12px;
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 1rem;
+        padding: 1rem;
     }
 }
 
-/* ----- TARJETAS DE POKEMON MEJORADAS ----- */
+/* ----- TARJETAS DE POKEMON ----- */
 .pokemon-card {
     background-color: white;
     border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
     text-align: center;
-    padding: 15px 10px;
+    padding: 1.5rem 1rem;
     cursor: pointer;
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
-    border: 1px solid rgba(0, 0, 0, 0.05);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .pokemon-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
 }
 
 .pokemon-card img {
     width: 100%;
-    height: auto;
-    max-height: 100px;
+    height: 120px;
     object-fit: contain;
     transition: transform 0.3s ease;
+    margin-bottom: 1rem;
 }
 
 .pokemon-card:hover img {
@@ -167,13 +173,14 @@ button {
 }
 
 .pokemon-card h3 {
-    margin: 10px 0 0;
-    font-size: 1rem;
-    color: #333;
+    margin: 0;
+    font-size: 1.1rem;
     font-weight: 600;
+    color: #333;
+    text-transform: capitalize;
 }
 
-/* ----- EFECTOS DE TIPO ----- */
+/* ----- FONDOS POR TIPO ----- */
 .pokemon-card[data-types*=","] {
     background: linear-gradient(135deg, var(--type1-color) 50%, var(--type2-color) 50%);
 }
@@ -182,23 +189,24 @@ button {
     background-color: var(--type1-color);
 }
 
-/* ----- BOTÓN DE FAVORITOS EN TARJETAS ----- */
+/* ----- BOTÓN DE FAVORITOS ----- */
 .star-btn {
     position: absolute;
-    top: 8px;
-    right: 8px;
-    background: rgba(255, 255, 255, 0.8);
+    top: 10px;
+    right: 10px;
+    background: rgba(255, 255, 255, 0.9);
     border: none;
-    width: 28px;
-    height: 28px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
-    font-size: 16px;
+    font-size: 1rem;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: all 0.3s ease;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 2;
 }
 
 .star-btn:hover {
@@ -210,75 +218,66 @@ button {
     color: #FFD700;
 }
 
-/* ----- MEDIA QUERIES PARA HEADER ----- */
+/* ----- TIPOS DE POKEMON ----- */
+.type-badge {
+    display: inline-block;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: white;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    margin: 0.2rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* ----- COLORES DE TIPOS ----- */
+.fire { --type1-color: #FF6B6B; }
+.water { --type1-color: #4D96FF; }
+.grass { --type1-color: #6BCB77; }
+.electric { --type1-color: #FFD93D; }
+.ground { --type1-color: #E4A444; }
+.rock { --type1-color: #A38C21; }
+.fairy { --type1-color: #FF9F9F; }
+.poison { --type1-color: #9F5F80; }
+.bug { --type1-color: #9BBF30; }
+.dragon { --type1-color: #6F35FC; }
+.psychic { --type1-color: #FF6B9E; }
+.flying { --type1-color: #A890F0; }
+.fighting { --type1-color: #C03028; }
+.normal { --type1-color: #A8A878; }
+.ghost { --type1-color: #705898; }
+.ice { --type1-color: #98D8D8; }
+.steel { --type1-color: #B8B8D0; }
+.dark { --type1-color: #705848; }
+
+/* ----- RESPONSIVE HEADER ----- */
 @media (min-width: 768px) {
     header {
-        flex-direction: row;
-        justify-content: space-between;
+        padding: 1.5rem 3rem;
+    }
+    
+    h1 {
+        font-size: 2.5rem;
+        margin-bottom: 1.5rem;
     }
     
     .search-container {
         flex-direction: row;
-        align-items: center;
-    }
-    
-    .filters-container {
-        flex-direction: row;
-        flex-grow: 1;
+        flex-wrap: nowrap;
     }
     
     input, select {
-        width: auto;
         flex-grow: 1;
     }
-    
-    #favorites-btn, #home-btn {
-        width: auto;
-        padding: 12px 20px;
-    }
 }
 
-/* ----- COLORES DE TIPOS ----- */
-.type-badge {
-    display: inline-block;
-    padding: 5px 12px;
-    border-radius: 15px;
-    font-size: 12px;
-    font-weight: bold;
-    color: white;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-    margin: 3px;
-    border: 1px solid rgba(0, 0, 0, 0.2);
-}
-
-.pokemon-card.fire { --type1-color: #EE8130; }
-.pokemon-card.water { --type1-color: #6390F0; }
-.pokemon-card.grass { --type1-color: #7AC74C; }
-.pokemon-card.electric { --type1-color: #F7D02C; }
-.pokemon-card.ground { --type1-color: #E2BF65; }
-.pokemon-card.rock { --type1-color: #B6A136; }
-.pokemon-card.fairy { --type1-color: #D685AD; }
-.pokemon-card.poison { --type1-color: #A33EA1; }
-.pokemon-card.bug { --type1-color: #A6B91A; }
-.pokemon-card.dragon { --type1-color: #6F35FC; }
-.pokemon-card.psychic { --type1-color: #F95587; }
-.pokemon-card.flying { --type1-color: #A98FF3; }
-.pokemon-card.fighting { --type1-color: #C22E28; }
-.pokemon-card.normal { --type1-color: #A8A77A; }
-.pokemon-card.ghost { --type1-color: #735797; }
-.pokemon-card.ice { --type1-color: #96D9D6; }
-.pokemon-card.steel { --type1-color: #B7B7CE; }
-.pokemon-card.dark { --type1-color: #705746; }
-
-/* ----- ESTILOS PARA TYPE-BADGE EN MODAL ----- */
-.modal-content .type-badge {
-    display: inline-block;
-    padding: 5px 12px;
-    border-radius: 15px;
-    font-size: 12px;
-    font-weight: bold;
-    color: white;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-    margin: 3px;
-    border: 1px solid rgba(0, 0, 0, 0.2);
+/* ----- MENSAJES DE ESTADO ----- */
+#pokedex-container > p {
+    text-align: center;
+    grid-column: 1 / -1;
+    color: #666;
+    font-size: 1.2rem;
+    margin-top: 2rem;
 }
