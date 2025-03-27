@@ -1,0 +1,129 @@
+/* modal.css - Versión simplificada sin botón de favoritos */
+
+/* Estilos del modal */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 15px;
+    text-align: center;
+    position: relative;
+    width: 300px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Fondo degradado para tipos duales */
+.modal-content[data-types*=","] {
+    background: linear-gradient(135deg, var(--type1-color) 50%, var(--type2-color) 50%);
+}
+
+/* Fondo sólido para un solo tipo */
+.modal-content:not([data-types*=","]) {
+    background-color: var(--type1-color);
+}
+
+/* Botón para cerrar el modal */
+.close-modal {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #333;
+}
+
+/* Contenido del modal */
+#modal-pokemon-info img {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 10px;
+}
+
+#modal-pokemon-info h2 {
+    font-size: 20px;
+    margin: 5px 0;
+    color: #222;
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
+}
+
+#modal-pokemon-info p {
+    font-size: 14px;
+    margin: 3px 0;
+    color: #333;
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
+}
+
+/* Barras de stats */
+.stat-bar-container {
+    margin: 8px 0;
+    text-align: left;
+}
+
+.stat-bar-label {
+    font-size: 12px;
+    color: #333;
+    margin-bottom: 3px;
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
+}
+
+.stat-bar {
+    width: 100%;
+    height: 8px;
+    background-color: #e0e0e0;
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+}
+
+.stat-bar-progress {
+    height: 100%;
+    background-color: #e74c3c;
+    border-radius: 5px;
+    transition: width 0.3s ease;
+}
+
+.stat-bar-value {
+    font-size: 10px;
+    color: #333;
+    margin-left: 5px;
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
+}
+
+/* Botones de navegación (anterior/siguiente) - VERSIÓN CORREGIDA */
+.modal-navigation {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+#prev-pokemon, #next-pokemon {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s;
+    margin: 0; /* Eliminamos el margen individual */
+}
+
+#prev-pokemon:hover, #next-pokemon:hover {
+    background-color: #c0392b;
+    transform: translateY(-2px);
+}
