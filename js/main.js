@@ -46,6 +46,7 @@ async function fetchPokemon(generation) {
 function createPokemonCard(pokemon) {
     const card = document.createElement("div");
     card.classList.add("pokemon-card");
+    // Asegurar que se añade la clase del tipo primario
     card.classList.add(pokemon.types[0].type.name);
     card.dataset.id = pokemon.id;
     card.dataset.types = pokemon.types.map(type => type.type.name).join(",");
@@ -56,6 +57,10 @@ function createPokemonCard(pokemon) {
         const type2 = pokemon.types[1].type.name;
         card.style.setProperty("--type1-color", getTypeColor(type1));
         card.style.setProperty("--type2-color", getTypeColor(type2));
+    } else {
+        // Asegurar que Pokémon con un solo tipo tengan su color
+        const type1 = pokemon.types[0].type.name;
+        card.style.setProperty("--type1-color", getTypeColor(type1));
     }
 
     // Botón de favoritos
@@ -104,11 +109,11 @@ function createPokemonCard(pokemon) {
 // Función para obtener color según tipo
 function getTypeColor(type) {
     const typeColors = {
-        fire: "#EE8130", water: "#6390F0", grass: "#7AC74C", electric: "#F7D02C",
-        ground: "#E2BF65", rock: "#B6A136", fairy: "#D685AD", poison: "#A33EA1",
-        bug: "#A6B91A", dragon: "#6F35FC", psychic: "#F95587", flying: "#A98FF3",
-        fighting: "#C22E28", normal: "#A8A77A", ghost: "#735797", ice: "#96D9D6",
-        steel: "#B7B7CE", dark: "#705746"
+        fire: "#FF6B6B", water: "#4D96FF", grass: "#6BCB77", electric: "#FFD93D",
+        ground: "#E4A444", rock: "#A38C21", fairy: "#FF9F9F", poison: "#9F5F80",
+        bug: "#9BBF30", dragon: "#6F35FC", psychic: "#FF6B9E", flying: "#A890F0",
+        fighting: "#C03028", normal: "#A8A878", ghost: "#705898", ice: "#98D8D8",
+        steel: "#B8B8D0", dark: "#705848"
     };
     return typeColors[type] || "#F5F5F5";
 }

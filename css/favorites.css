@@ -1,69 +1,58 @@
-/* Botón de favoritos */
+/* favorites.css - Versión mejorada */
+
+/* Botón de favoritos en header */
 #favorites-btn {
     background-color: #FFD700;
-    color: #000;
+    color: #333;
     border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
+    padding: 0.8rem 1.5rem;
+    border-radius: 50px;
+    font-weight: 600;
     cursor: pointer;
-    font-weight: bold;
     transition: all 0.3s;
-    margin-left: 10px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 #favorites-btn:hover {
     background-color: #FFC000;
-    transform: scale(1.05);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
 /* Botón de inicio */
 #home-btn {
-    background-color: #4CAF50;
+    background-color: #2ecc71;
     color: white;
     border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
+    padding: 0.8rem 1.5rem;
+    border-radius: 50px;
+    font-weight: 600;
     cursor: pointer;
-    font-weight: bold;
     transition: all 0.3s;
-    margin-left: 10px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 #home-btn:hover {
-    background-color: #45a049;
-    transform: scale(1.05);
+    background-color: #27ae60;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
-/* Estrella en tarjetas */
-.star-btn {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    background: none;
-    border: none;
-    font-size: 20px;
-    cursor: pointer;
-    color: #000;
-    z-index: 1;
-}
-
-.star-btn.favorite {
-    color: #FFD700;
-}
-
-/* Modal estrella */
-.modal-star {
-    position: absolute;
-    top: 10px;
-    right: 40px;
-    background: none;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
-    color: #000;
-    z-index: 2;
-}
-
-.modal-star.favorite {
-    color: #FFD700;
+/* Mensaje cuando no hay favoritos */
+#pokedex-container > p {
+    text-align: center;
+    grid-column: 1 / -1;
+    color: #666;
+    font-size: 1.2rem;
+    margin-top: 3rem;
+    padding: 2rem;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
