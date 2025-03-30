@@ -20,6 +20,7 @@
             <select id="generation-filter">
             </select>
             <button id="favorites-btn">⭐ Favoritos</button>
+            <!-- El user-menu se añadirá aquí dinámicamente -->
         </div>
     </header>
 
@@ -39,9 +40,16 @@
         </div>
     </div>
 
+    <script src="js/auth.js"></script>
     <script src="js/filters.js"></script>
     <script src="js/main.js"></script>
     <script src="js/modal.js"></script>
     <script src="js/favorites.js"></script>
+    <script>
+        // Initialize after DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            updateHeader();
+        });
+    </script>
 </body>
 </html>

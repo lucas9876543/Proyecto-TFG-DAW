@@ -109,7 +109,7 @@ function createPokemonCard(pokemon) {
 // Función para obtener color según tipo
 function getTypeColor(type) {
     const typeColors = {
-        fire: "#FF6B6B", water: "#4D96FF", grass: "#6BCB77", electric: "#FFD93D",
+        fire: "#f87524", water: "#4D96FF", grass: "#6BCB77", electric: "#FFD93D",
         ground: "#E4A444", rock: "#A38C21", fairy: "#FF9F9F", poison: "#9F5F80",
         bug: "#9BBF30", dragon: "#6F35FC", psychic: "#FF6B9E", flying: "#A890F0",
         fighting: "#C03028", normal: "#A8A878", ghost: "#705898", ice: "#98D8D8",
