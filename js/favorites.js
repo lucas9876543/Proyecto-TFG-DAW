@@ -1,13 +1,18 @@
 // Manejo de favoritos
-const FAVORITES_KEY = 'pokemon-favorites';
+function getFavoritesKey() {
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    return currentUser ? `pokemon-favorites-${currentUser.username}` : 'pokemon-favorites';
+}
 
 function getFavorites() {
-    const favorites = localStorage.getItem(FAVORITES_KEY);
+    const key = getFavoritesKey();
+    const favorites = localStorage.getItem(key);
     return favorites ? JSON.parse(favorites) : [];
 }
 
 function saveFavorites(favorites) {
-    localStorage.setItem(FAVORITES_KEY, JSON.stringify(favorites));
+    const key = getFavoritesKey();
+    localStorage.setItem(key, JSON.stringify(favorites));
 }
 
 function toggleFavorite(pokemonId) {

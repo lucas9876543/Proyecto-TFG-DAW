@@ -18,6 +18,7 @@
                 <option value="">Todos los tipos</option>
             </select>
             <button id="home-btn">🏠 Inicio</button>
+            <!-- El user-menu se añadirá aquí dinámicamente -->
         </div>
     </header>
 
@@ -36,8 +37,14 @@
         </div>
     </div>
 
+    <script src="js/auth.js"></script>
     <script src="js/favorites.js"></script>
     <script src="js/favorites-main.js"></script>
     <script src="js/modal.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            updateHeader();
+        });
+    </script>
 </body>
 </html>
