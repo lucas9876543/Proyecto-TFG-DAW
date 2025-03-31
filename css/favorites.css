@@ -114,3 +114,41 @@
 #home-btn:hover {
     background-color: #27ae60;
 }
+
+/* Shiny button in favorites */
+#shiny-btn {
+    margin-left: auto;
+    background: linear-gradient(135deg, #FFD700, #FFA500);
+    color: #333;
+}
+
+#shiny-btn:hover {
+    background: linear-gradient(135deg, #FFA500, #FFD700);
+}
+
+#shiny-btn.active {
+    background: linear-gradient(135deg, #FFA500, #FFD700);
+    box-shadow: 0 0 15px #FFD700;
+}
+
+/* Reemplaza el @media existente por esto: */
+@media (max-width: 768px) {
+    #shiny-btn {
+        width: auto;
+        min-width: 120px;
+        margin-left: 0;
+    }
+    
+    .search-row {
+        flex-wrap: wrap;
+    }
+    
+    #search-input, #home-btn, #shiny-btn {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+    
+    #home-btn, #shiny-btn {
+        min-width: 120px;
+    }
+}

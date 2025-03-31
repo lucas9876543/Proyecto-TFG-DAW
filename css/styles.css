@@ -337,3 +337,147 @@ button {
     from { opacity: 0; transform: translateY(-10px); }
     to { opacity: 1; transform: translateY(0); }
 }
+
+/* ----- SHINY BUTTON STYLES ----- */
+.shiny-button {
+    background: linear-gradient(135deg, #FFD700, #FFA500);
+    color: #333;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 50px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.shiny-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.shiny-button.active {
+    background: linear-gradient(135deg, #FFA500, #FFD700);
+    box-shadow: 0 0 15px #FFD700;
+}
+
+.shiny-button::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        to bottom right,
+        rgba(255, 255, 255, 0.3) 0%,
+        rgba(255, 255, 255, 0) 60%
+    );
+    transform: rotate(30deg);
+    transition: all 0.3s;
+}
+
+.shiny-button:hover::before {
+    animation: shine 1.5s infinite;
+}
+
+@keyframes shine {
+    0% { transform: rotate(30deg) translate(-30%, -30%); }
+    100% { transform: rotate(30deg) translate(30%, 30%); }
+}
+
+/* ----- RESPONSIVE SHINY BUTTON ----- */
+@media (max-width: 768px) {
+    #shiny-btn {
+        width: auto;
+        padding: 0.8rem 1.2rem;
+        margin-left: 0;
+        order: 1; /* Colocarlo antes que el botón de favoritos */
+    }
+    
+    #favorites-btn {
+        order: 2;
+    }
+    
+    .search-container {
+        flex-wrap: wrap;
+    }
+    
+    #shiny-btn, #favorites-btn {
+        flex: 1;
+        min-width: 120px;
+    }
+}
+
+/* ----- UNIFORM FILTER STYLES ----- */
+@media (max-width: 768px) {
+    .search-container {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    #search-input,
+    #type-filter,
+    #generation-filter,
+    #shiny-btn,
+    #favorites-btn {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+    
+    .filter-row {
+        display: flex;
+        gap: 0.5rem;
+        width: 100%;
+    }
+    
+    .filter-row select {
+        flex: 1;
+        min-width: 0;
+    }
+}
+
+/* Mobile-first styles for filters */
+.button-row {
+    display: flex;
+    gap: 0.5rem;
+    width: 100%;
+}
+
+.button-row button {
+    flex: 1;
+}
+
+@media (min-width: 769px) {
+    .search-container {
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+    }
+    
+    #search-input {
+        flex: 2;
+        min-width: 200px;
+    }
+    
+    .filter-row {
+        flex: 3;
+        min-width: 300px;
+    }
+    
+    .button-row {
+        flex: 1;
+        justify-content: flex-end;
+        min-width: 200px;
+    }
+    
+    .filter-row select {
+        min-width: 150px;
+    }
+}

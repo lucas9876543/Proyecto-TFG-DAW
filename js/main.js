@@ -118,5 +118,6 @@ function getTypeColor(type) {
     return typeColors[type] || "#F5F5F5";
 }
 
+
 // Cargar Generación 1 por defecto
 fetchPokemon(1);

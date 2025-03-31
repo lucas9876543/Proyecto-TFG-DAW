@@ -170,3 +170,5 @@ generationFilter.addEventListener("change", filterPokemon);
 // Inicializar
 fetchFilters();
 loadFavoritePokemon();
+
+window.openModal = openModal;
