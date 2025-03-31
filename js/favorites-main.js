@@ -1,13 +1,28 @@
 const pokedexContainer = document.getElementById("pokedex-container");
 const searchInput = document.getElementById("search-input");
 const typeFilter = document.getElementById("type-filter");
+const generationFilter = document.getElementById("generation-filter");
 
-// Llenar el desplegable de tipos
-async function fetchTypes() {
-    const response = await fetch("https://pokeapi.co/api/v2/type/");
-    const data = await response.json();
+// Rangos de Pokémon por generación
+const generationRanges = {
+    1: { start: 1, end: 151 },   // Generación 1
+    2: { start: 152, end: 251 }, // Generación 2
+    3: { start: 252, end: 386 }, // Generación 3
+    4: { start: 387, end: 493 }, // Generación 4
+    5: { start: 494, end: 649 }, // Generación 5
+    6: { start: 650, end: 721 }, // Generación 6
+    7: { start: 722, end: 809 }, // Generación 7
+    8: { start: 810, end: 905 }, // Generación 8
+    9: { start: 906, end: 1025 } // Generación 9
+};
+
+// Llenar el desplegable de tipos y generaciones
+async function fetchFilters() {
+    // Tipos
+    const typeResponse = await fetch("https://pokeapi.co/api/v2/type/");
+    const typeData = await typeResponse.json();
     const excludedTypes = ["stellar", "unknown"];
-    const types = data.results
+    const types = typeData.results
         .map(type => type.name)
         .filter(type => !excludedTypes.includes(type));
 
@@ -17,6 +32,28 @@ async function fetchTypes() {
         option.textContent = type.charAt(0).toUpperCase() + type.slice(1);
         typeFilter.appendChild(option);
     });
+
+    // Generaciones
+    const genResponse = await fetch("https://pokeapi.co/api/v2/generation/");
+    const genData = await genResponse.json();
+    const generations = genData.results.map((gen, index) => ({
+        id: index + 1,
+        name: gen.name
+    }));
+
+    generations.forEach(gen => {
+        const option = document.createElement("option");
+        option.value = gen.id;
+        option.textContent = `Generación ${gen.id}`;
+        generationFilter.appendChild(option);
+    });
+}
+
+// Función para verificar si un Pokémon pertenece a una generación
+function isPokemonInGeneration(pokemonId, generation) {
+    if (!generation) return true;
+    const range = generationRanges[generation];
+    return pokemonId >= range.start && pokemonId <= range.end;
 }
 
 // Función para crear tarjetas de Pokémon
@@ -78,14 +115,19 @@ function createPokemonCard(pokemon) {
 function filterPokemon() {
     const searchTerm = searchInput.value.toLowerCase();
     const selectedType = typeFilter.value;
+    const selectedGeneration = generationFilter.value;
     const pokemonCards = document.querySelectorAll(".pokemon-card");
 
     pokemonCards.forEach(card => {
         const name = card.querySelector("h3").textContent.toLowerCase();
         const types = card.dataset.types.split(",");
+        const pokemonId = parseInt(card.dataset.id);
+        
         const matchesSearch = name.includes(searchTerm);
         const matchesType = selectedType === "" || types.includes(selectedType);
-        card.style.display = matchesSearch && matchesType ? "block" : "none";
+        const matchesGeneration = isPokemonInGeneration(pokemonId, selectedGeneration);
+        
+        card.style.display = matchesSearch && matchesType && matchesGeneration ? "block" : "none";
     });
 }
 
@@ -102,6 +144,7 @@ async function loadFavoritePokemon() {
     );
     const pokemonList = await Promise.all(pokemonPromises);
 
+    pokedexContainer.innerHTML = "";
     pokemonList.forEach(pokemon => {
         createPokemonCard(pokemon);
     });
@@ -122,7 +165,8 @@ function getTypeColor(type) {
 // Event listeners
 searchInput.addEventListener("input", filterPokemon);
 typeFilter.addEventListener("change", filterPokemon);
+generationFilter.addEventListener("change", filterPokemon);
 
 // Inicializar
-fetchTypes();
+fetchFilters();
 loadFavoritePokemon();
