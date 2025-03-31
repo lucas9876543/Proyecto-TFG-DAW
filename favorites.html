@@ -11,14 +11,22 @@
 </head>
 <body>
     <header>
-        <h1>Pokémon Favoritos</h1>
-        <div class="search-container">
-            <input type="text" id="search-input" placeholder="Buscar Pokémon...">
-            <select id="type-filter">
-                <option value="">Todos los tipos</option>
-            </select>
-            <button id="home-btn">🏠 Inicio</button>
-            <!-- El user-menu se añadirá aquí dinámicamente -->
+        <div class="header-content">
+            <h1>Pokémon Favoritos</h1>
+            <div class="search-container">
+                <div class="search-row">
+                    <input type="text" id="search-input" placeholder="Buscar Pokémon...">
+                    <button id="home-btn">🏠 Inicio</button>
+                </div>
+                <div class="filter-row">
+                    <select id="type-filter">
+                        <option value="">Todos los tipos</option>
+                    </select>
+                    <select id="generation-filter">
+                        <option value="">Todas las generaciones</option>
+                    </select>
+                </div>
+            </div>
         </div>
     </header>
 
