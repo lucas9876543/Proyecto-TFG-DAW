@@ -1,3 +1,5 @@
+
+window.currentPokemonId = null;
 const modal = document.getElementById("pokemon-modal");
 const closeModalBtn = document.querySelector(".close-modal");
 const modalContent = document.querySelector(".modal-content");
@@ -32,6 +34,9 @@ function getVisiblePokemonList() {
 // Actualizar el contenido del modal
 function updateModalContent(pokemon) {
     if (!pokemon) return;
+    
+    // Guardar el ID del Pokémon actual para el modo shiny
+    window.currentPokemonId = pokemon.id;
 
     // Resetear estilos y agregar tipo primario
     modalContent.className = "modal-content";
@@ -67,10 +72,15 @@ function updateModalContent(pokemon) {
         <span class="type-badge ${type.type.name}">${type.type.name.toUpperCase()}</span>
     `).join("");
 
+    // Imagen según modo shiny
+    const pokemonImage = shinyMode 
+        ? `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/${pokemon.id}.png`
+        : pokemon.sprites.front_default;
+
     // Insertar contenido en el modal
     modalInfo.innerHTML = `
         <h2>${pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}</h2>
-        <img src="${pokemon.sprites.front_default}" alt="${pokemon.name}">
+        <img src="${pokemonImage}" alt="${pokemon.name}">
         <p>Altura: ${pokemon.height / 10} m</p>
         <p>Peso: ${pokemon.weight / 10} kg</p>
         <div class="types-container">

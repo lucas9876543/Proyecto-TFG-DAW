@@ -14,13 +14,19 @@
         <h1>Pokedex</h1>
         <div class="search-container">
             <input type="text" id="search-input" placeholder="Buscar Pokémon...">
-            <select id="type-filter">
-                <option value="">Todos los tipos</option>
-            </select>
-            <select id="generation-filter">
-            </select>
-            <button id="favorites-btn">⭐ Favoritos</button>
-            <!-- El user-menu se añadirá aquí dinámicamente -->
+            
+            <div class="filter-row">
+                <select id="type-filter">
+                    <option value="">Todos los tipos</option>
+                </select>
+                <select id="generation-filter">
+                </select>
+            </div>
+            
+            <div class="button-row">
+                <button id="shiny-btn" class="shiny-button">✨</button>
+                <button id="favorites-btn">⭐</button>
+            </div>
         </div>
     </header>
 
@@ -45,6 +51,7 @@
     <script src="js/main.js"></script>
     <script src="js/modal.js"></script>
     <script src="js/favorites.js"></script>
+    <script src="js/shiny.js"></script>
     <script>
         // Initialize after DOM is loaded
         document.addEventListener('DOMContentLoaded', function() {
