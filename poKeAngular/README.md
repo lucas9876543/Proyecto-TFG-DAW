@@ -1,59 +1,269 @@
-# PoKeAngular
+# Angular Pokédex
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.13.
+A modern Pokédex application built with Angular that allows users to browse, search, and manage their favorite Pokémon. This project is an Angular conversion of a vanilla JavaScript Pokédex application.
 
-## Development server
+## Features
 
-To start a local development server, run:
+- 🔍 **Search Pokémon** by name
+- 🏷️ **Filter by type** and generation
+- ⭐ **Favorites system** with local storage
+- ✨ **Shiny Pokémon toggle**
+- 📱 **Responsive design** for all devices
+- 🔐 **User authentication** (login/register)
+- 📊 **Detailed Pokémon stats** in modal view
+- 🎨 **Dynamic type-based styling**
 
-```bash
+## Prerequisites
+
+Before running this project, make sure you have the following installed:
+
+- **Node.js** (version 18 or higher)
+- **npm** (comes with Node.js)
+- **Angular CLI** (version 17 or higher)
+
+### Installing Angular CLI
+
+If you don't have Angular CLI installed globally:
+
+\`\`\`bash
+npm install -g @angular/cli
+\`\`\`
+
+## Installation
+
+1. **Clone or download the project**
+   \`\`\`bash
+   git clone <repository-url>
+   cd angular-pokedex
+   \`\`\`
+
+2. **Install dependencies**
+   \`\`\`bash
+   npm install
+   \`\`\`
+
+## Running the Application
+
+### Development Server
+
+To start the development server:
+
+\`\`\`bash
 ng serve
-```
+\`\`\`
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+The application will be available at \`http://localhost:4200\`
 
-## Code scaffolding
+### Production Build
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+To build the project for production:
 
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
+\`\`\`bash
 ng build
-```
+\`\`\`
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+The build artifacts will be stored in the \`dist/\` directory.
 
-## Running unit tests
+## Project Structure
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+\`\`\`
+src/
+├── app/
+│ ├── components/
+│ │ ├── pokemon-card/ # Individual Pokémon card component
+│ │ ├── pokemon-modal/ # Pokémon details modal
+│ │ ├── search-filters/ # Search and filter controls
+│ │ └── user-menu/ # User authentication menu
+│ ├── pages/
+│ │ ├── home/ # Main Pokédex page
+│ │ ├── favorites/ # Favorites page
+│ │ ├── login/ # Login page
+│ │ └── register/ # Registration page
+│ ├── services/
+│ │ ├── pokemon.service.ts # Pokémon API service
+│ │ ├── auth.service.ts # Authentication service
+│ │ └── favorites.service.ts # Favorites management
+│ ├── models/
+│ │ └── pokemon.model.ts # Pokémon data models
+│ ├── guards/
+│ │ └── auth.guard.ts # Route protection
+│ └── styles/
+│ ├── globals.css # Global styles
+│ ├── pokemon-types.css # Type-specific colors
+│ └── components.css # Component styles
+├── assets/
+└── environments/
+\`\`\`
 
-```bash
+## Key Dependencies
+
+- **Angular 17+** - Main framework
+- **Angular Router** - Navigation and routing
+- **Angular Forms** - Reactive forms for authentication
+- **RxJS** - Reactive programming for HTTP requests
+- **Google Fonts** - Poppins font family
+
+## API Integration
+
+This application uses the [PokéAPI](https://pokeapi.co/) to fetch Pokémon data:
+
+- **Base URL**: \`https://pokeapi.co/api/v2/\`
+- **Pokémon endpoint**: \`/pokemon/{id or name}\`
+- **Species endpoint**: \`/pokemon-species/{id}\`
+- **Type endpoint**: \`/type/{id or name}\`
+
+## Features Overview
+
+### Authentication
+
+- Simple username/password authentication
+- User data stored in localStorage
+- Route guards to protect authenticated pages
+- User menu with logout functionality
+
+### Pokémon Browsing
+
+- Grid layout with responsive design
+- Search by name functionality
+- Filter by type and generation
+- Shiny Pokémon variants toggle
+- Infinite scroll or pagination (configurable)
+
+### Favorites System
+
+- Add/remove Pokémon from favorites
+- Persistent storage using localStorage
+- Dedicated favorites page
+- Visual indicators for favorite Pokémon
+
+### Pokémon Details
+
+- Modal popup with detailed information
+- Stats visualization with progress bars
+- Type badges with appropriate colors
+- Navigation between Pokémon in modal
+- High-quality Pokémon images
+
+## Customization
+
+### Adding New Pokémon Types
+
+To add support for new Pokémon types, update the type colors in \`src/app/styles/pokemon-types.css\`:
+
+\`\`\`css
+.new-type { --type1-color: #YOUR_COLOR; }
+\`\`\`
+
+### Modifying API Endpoints
+
+Update the API URLs in \`src/app/services/pokemon.service.ts\`:
+
+\`\`\`typescript
+private readonly API_BASE = 'https://pokeapi.co/api/v2/';
+\`\`\`
+
+### Styling Customization
+
+- Global styles: \`src/app/styles/globals.css\`
+- Component styles: Individual component \`.css\` files
+- Type colors: \`src/app/styles/pokemon-types.css\`
+
+## Development Commands
+
+\`\`\`bash
+
+# Start development server
+
+ng serve
+
+# Run tests
+
 ng test
-```
 
-## Running end-to-end tests
+# Run end-to-end tests
 
-For end-to-end (e2e) testing, run:
-
-```bash
 ng e2e
-```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+# Build for production
 
-## Additional Resources
+ng build --prod
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+# Lint the code
+
+ng lint
+
+# Generate a new component
+
+ng generate component component-name
+
+# Generate a new service
+
+ng generate service service-name
+\`\`\`
+
+## Browser Support
+
+This application supports all modern browsers:
+
+- Chrome (latest)
+- Firefox (latest)
+- Safari (latest)
+- Edge (latest)
+
+## Performance Considerations
+
+- **Lazy loading** for route modules
+- **OnPush change detection** for better performance
+- **Image optimization** with proper sizing
+- **HTTP caching** for API requests
+- **Virtual scrolling** for large lists (optional)
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch (\`git checkout -b feature/new-feature\`)
+3. Commit your changes (\`git commit -am 'Add new feature'\`)
+4. Push to the branch (\`git push origin feature/new-feature\`)
+5. Create a Pull Request
+
+## Troubleshooting
+
+### Common Issues
+
+**Port already in use:**
+\`\`\`bash
+ng serve --port 4201
+\`\`\`
+
+**Node modules issues:**
+\`\`\`bash
+rm -rf node_modules package-lock.json
+npm install
+\`\`\`
+
+**Angular CLI not found:**
+\`\`\`bash
+npm install -g @angular/cli@latest
+\`\`\`
+
+### API Rate Limiting
+
+If you encounter API rate limiting, consider:
+
+- Implementing request caching
+- Adding request delays
+- Using a local Pokémon data cache
+
+## License
+
+This project is open source and available under the [MIT License](LICENSE).
+
+## Acknowledgments
+
+- [PokéAPI](https://pokeapi.co/) for providing the Pokémon data
+- [Google Fonts](https://fonts.google.com/) for the Poppins font
+- Original vanilla JavaScript implementation as the foundation
+
+---
+
+**Happy Pokémon hunting! 🎮✨**

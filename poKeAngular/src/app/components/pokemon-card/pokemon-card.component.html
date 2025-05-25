@@ -1,0 +1,17 @@
+<div class="pokemon-card" [class]="typeClasses" [style]="typeColors" [attr.data-types]="dataTypes"
+    (click)="onCardClick()">
+
+    <button class="star-btn" [class.favorite]="isFavorite()" (click)="toggleFavorite($event)">
+        {{ isFavorite() ? '⭐' : '☆' }}
+    </button>
+
+    <img [src]="pokemonImage" [alt]="pokemon.name" loading="lazy">
+
+    <h3>{{ pokemon.name | titlecase }}</h3>
+
+    <div class="types-container">
+        <span *ngFor="let type of pokemon.types" class="type-badge" [class]="type.type.name">
+            {{ type.type.name }}
+        </span>
+    </div>
+</div>

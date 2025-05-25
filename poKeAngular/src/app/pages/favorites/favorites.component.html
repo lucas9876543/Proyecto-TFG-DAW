@@ -1,0 +1,44 @@
+<header>
+  <div class="header-content">
+    <h1>Pokémon Favoritos</h1>
+    <div class="header-controls">
+      <app-search-filters 
+        (filtersChanged)="onFiltersChanged($event)"
+        (shinyToggle)="onShinyToggle($event)"
+        [showFavoritesButton]="false">
+      </app-search-filters>
+      <button class="btn btn-secondary" (click)="goHome()">
+        🏠 Inicio
+      </button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div *ngIf="loading" class="loading">
+    Cargando favoritos...
+  </div>
+  
+  <div *ngIf="!loading && filteredPokemon.length === 0" class="no-favorites">
+    <p>No tienes Pokémon favoritos aún.</p>
+    <button class="btn btn-primary" (click)="goHome()">
+      Explorar Pokémon
+    </button>
+  </div>
+  
+  <div *ngIf="!loading && filteredPokemon.length > 0" class="pokedex-grid">
+    <app-pokemon-card 
+      *ngFor="let pokemon of filteredPokemon"
+      [pokemon]="pokemon"
+      [isShiny]="isShinyMode"
+      (click)="onPokemonClick(pokemon)">
+    </app-pokemon-card>
+  </div>
+</main>
+
+<app-pokemon-modal 
+  *ngIf="showModal && selectedPokemon"
+  [pokemon]="selectedPokemon"
+  [isShiny]="isShinyMode"
+  (close)="onModalClose()">
+</app-pokemon-modal>

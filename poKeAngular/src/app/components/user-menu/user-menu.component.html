@@ -1,0 +1,15 @@
+<div class="user-menu" *ngIf="currentUser">
+    <button class="btn btn-secondary user-btn" (click)="toggleDropdown($event)">
+        👤 {{ currentUser.username }}
+        <span class="dropdown-arrow" [class.open]="showDropdown">▼</span>
+    </button>
+
+    <div class="dropdown-content" [class.show]="showDropdown">
+        <a (click)="goToFavorites()">
+            ⭐ Mis Favoritos
+        </a>
+        <a (click)="logout()">
+            🚪 Cerrar Sesión
+        </a>
+    </div>
+</div>

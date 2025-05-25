@@ -1,0 +1,46 @@
+<div class="modal" (click)="onBackdropClick($event)">
+    <div class="modal-content" [style]="typeColors" [attr.data-types]="dataTypes">
+
+        <span class="close-modal" (click)="onClose()">&times;</span>
+
+        <button class="modal-star" [class.favorite]="isFavorite()" (click)="toggleFavorite()">
+            {{ isFavorite() ? '⭐' : '☆' }}
+        </button>
+
+        <div class="modal-pokemon-info">
+            <img [src]="pokemonImage" [alt]="pokemon.name">
+
+            <h2>{{ pokemon.name | titlecase }}</h2>
+            <p><strong>ID:</strong> #{{ pokemonIdFormatted }}</p>
+            <p><strong>Altura:</strong> {{ pokemonHeight }} m</p>
+            <p><strong>Peso:</strong> {{ pokemonWeight }} kg</p>
+
+            <div class="types-container">
+                <span *ngFor="let type of pokemon.types" class="type-badge" [class]="type.type.name">
+                    {{ type.type.name }}
+                </span>
+            </div>
+
+            <div class="stats-container">
+                <h3>Estadísticas Base</h3>
+                <div *ngFor="let stat of pokemon.stats" class="stat-bar-container">
+                    <span class="stat-bar-label">{{ getStatName(stat.stat.name) }}</span>
+                    <div class="stat-bar">
+                        <div class="stat-bar-progress" [style.width.%]="getStatPercentage(stat.base_stat)">
+                        </div>
+                    </div>
+                    <span class="stat-bar-value">{{ stat.base_stat }}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-navigation">
+            <button class="nav-btn" (click)="onPrevious()" [disabled]="pokemon.id <= 1">
+                ← Anterior
+            </button>
+            <button class="nav-btn" (click)="onNext()">
+                Siguiente →
+            </button>
+        </div>
+    </div>
+</div>
