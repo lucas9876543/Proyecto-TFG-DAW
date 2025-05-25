@@ -1,0 +1,161 @@
+.pokemon-card {
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  padding: 1.5rem 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pokemon-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+}
+
+.pokemon-card img {
+  width: 100%;
+  height: 120px;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+  margin-bottom: 1rem;
+}
+
+.pokemon-card:hover img {
+  transform: scale(1.1);
+}
+
+.pokemon-card h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #333;
+  text-transform: capitalize;
+  margin-bottom: 0.5rem;
+}
+
+/* Background for dual types */
+.pokemon-card[data-types*=","] {
+  background: linear-gradient(
+    135deg,
+    var(--type1-color) 50%,
+    var(--type2-color) 50%
+  );
+}
+
+/* Background for single type */
+.pokemon-card:not([data-types*=","]) {
+  background-color: var(--type1-color);
+}
+
+.star-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  z-index: 2;
+}
+
+.star-btn:hover {
+  background: white;
+  transform: scale(1.1);
+}
+
+.star-btn.favorite {
+  color: #ffd700;
+}
+
+.types-container {
+  display: flex;
+  justify-content: center;
+  gap: 0.3rem;
+  margin-top: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.type-badge {
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  border-radius: 15px;
+  font-size: 0.6rem;
+  font-weight: 600;
+  color: white;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Type colors for badges */
+.type-badge.fire {
+  background-color: #f87524;
+}
+.type-badge.water {
+  background-color: #4d96ff;
+}
+.type-badge.grass {
+  background-color: #6bcb77;
+}
+.type-badge.electric {
+  background-color: #ffd93d;
+}
+.type-badge.ground {
+  background-color: #e4a444;
+}
+.type-badge.rock {
+  background-color: #a38c21;
+}
+.type-badge.fairy {
+  background-color: #ff9f9f;
+}
+.type-badge.poison {
+  background-color: #9f5f80;
+}
+.type-badge.bug {
+  background-color: #9bbf30;
+}
+.type-badge.dragon {
+  background-color: #6f35fc;
+}
+.type-badge.psychic {
+  background-color: #ff6b9e;
+}
+.type-badge.flying {
+  background-color: #a890f0;
+}
+.type-badge.fighting {
+  background-color: #c03028;
+}
+.type-badge.normal {
+  background-color: #a8a878;
+}
+.type-badge.ghost {
+  background-color: #705898;
+}
+.type-badge.ice {
+  background-color: #98d8d8;
+}
+.type-badge.steel {
+  background-color: #b8b8d0;
+}
+.type-badge.dark {
+  background-color: #705848;
+}

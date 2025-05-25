@@ -1,0 +1,32 @@
+<header>
+  <h1>Pokédex</h1>
+  <div class="header-controls">
+    <app-search-filters 
+      (filtersChanged)="onFiltersChanged($event)"
+      (shinyToggle)="onShinyToggle($event)">
+    </app-search-filters>
+    <app-user-menu></app-user-menu>
+  </div>
+</header>
+
+<main>
+  <div *ngIf="loading" class="loading">
+    Cargando Pokémon...
+  </div>
+  
+  <div *ngIf="!loading" class="pokedex-grid">
+    <app-pokemon-card 
+      *ngFor="let pokemon of filteredPokemon"
+      [pokemon]="pokemon"
+      [isShiny]="isShinyMode"
+      (click)="onPokemonClick(pokemon)">
+    </app-pokemon-card>
+  </div>
+</main>
+
+<app-pokemon-modal 
+  *ngIf="showModal && selectedPokemon"
+  [pokemon]="selectedPokemon"
+  [isShiny]="isShinyMode"
+  (close)="onModalClose()">
+</app-pokemon-modal>

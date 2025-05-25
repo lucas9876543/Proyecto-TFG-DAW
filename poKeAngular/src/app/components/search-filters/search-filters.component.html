@@ -1,0 +1,32 @@
+<div class="search-filters">
+    <div class="search-row">
+        <input type="text" class="search-input" placeholder="Buscar Pokémon..." [(ngModel)]="searchTerm"
+            (input)="onSearchChange()">
+    </div>
+
+    <div class="filter-row">
+        <select class="filter-select" [(ngModel)]="selectedType" (change)="onTypeChange()">
+            <option value="">Todos los tipos</option>
+            <option *ngFor="let type of types" [value]="type">
+                {{ type | titlecase }}
+            </option>
+        </select>
+
+        <select class="filter-select" [(ngModel)]="selectedGeneration" (change)="onGenerationChange()">
+            <option value="">Todas las generaciones</option>
+            <option *ngFor="let gen of generations" [value]="gen.value">
+                {{ gen.label }}
+            </option>
+        </select>
+    </div>
+
+    <div class="button-row">
+        <button class="btn btn-shiny" [class.active]="isShinyMode" (click)="toggleShiny()">
+            ✨ Shiny
+        </button>
+
+        <button *ngIf="showFavoritesButton" class="btn btn-warning" (click)="goToFavorites()">
+            ⭐ Favoritos
+        </button>
+    </div>
+</div>
