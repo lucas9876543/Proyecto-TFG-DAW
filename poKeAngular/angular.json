@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/angular-pokedex",
+            "outputPath": "dist/angular-pokedex/browser",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": ["zone.js"],
@@ -43,9 +43,7 @@
               "outputHashing": "all"
             },
             "development": {
-              "buildOptimizer": false,
               "optimization": false,
-              "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true
@@ -61,6 +59,43 @@
             },
             "development": {
               "buildTarget": "angular-pokedex:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "server": {
+          "builder": "@angular-devkit/build-angular:server",
+          "options": {
+            "outputPath": "dist/angular-pokedex/server",
+            "main": "src/main.server.ts",
+            "tsConfig": "tsconfig.server.json"
+          },
+          "configurations": {
+            "production": {
+              "outputHashing": "media"
+            },
+            "development": {
+              "optimization": false,
+              "sourceMap": true,
+              "extractLicenses": false
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve-ssr": {
+          "builder": "@angular-devkit/build-angular:ssr-dev-server",
+          "options": {
+            "browserTarget": "angular-pokedex:build",
+            "serverTarget": "angular-pokedex:server"
+          },
+          "configurations": {
+            "development": {
+              "browserTarget": "angular-pokedex:build:development",
+              "serverTarget": "angular-pokedex:server:development"
+            },
+            "production": {
+              "browserTarget": "angular-pokedex:build:production",
+              "serverTarget": "angular-pokedex:server:production"
             }
           },
           "defaultConfiguration": "development"
