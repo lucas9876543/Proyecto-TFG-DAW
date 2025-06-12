@@ -1,0 +1,7 @@
+C:\Users\juanc\source\repos\Kroos.API\Kroos.API\obj\Debug\net8.0\Kroos.API.csproj.AssemblyReference.cache
+C:\Users\juanc\source\repos\Kroos.API\Kroos.API\obj\Debug\net8.0\Kroos.API.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\juanc\source\repos\Kroos.API\Kroos.API\obj\Debug\net8.0\Kroos.API.AssemblyInfoInputs.cache
+C:\Users\juanc\source\repos\Kroos.API\Kroos.API\obj\Debug\net8.0\Kroos.API.AssemblyInfo.cs
+C:\Users\juanc\source\repos\Kroos.API\Kroos.API\obj\Debug\net8.0\Kroos.API.csproj.CoreCompileInputs.cache
+C:\Users\juanc\source\repos\Kroos.API\Kroos.API\obj\Debug\net8.0\Kroos.API.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\juanc\source\repos\Kroos.API\Kroos.API\obj\Debug\net8.0\Kroos.API.MvcApplicationPartsAssemblyInfo.cache
