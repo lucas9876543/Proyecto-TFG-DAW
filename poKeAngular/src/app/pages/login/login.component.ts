@@ -12,14 +12,14 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
-  username = '';
+  usernameOrEmail = '';
   password = '';
   errorMessage = '';
 
   constructor(private authService: AuthService, private router: Router) {}
 
   onSubmit() {
-    if (this.authService.login(this.username, this.password)) {
+    if (this.authService.login(this.usernameOrEmail, this.password)) {
       this.router.navigate(['/']);
     } else {
       this.errorMessage = 'Usuario o contraseña incorrectos';

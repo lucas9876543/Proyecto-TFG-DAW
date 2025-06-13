@@ -12,6 +12,7 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./register.component.css'],
 })
 export class RegisterComponent {
+  email = '';
   username = '';
   password = '';
   confirmPassword = '';
@@ -25,7 +26,7 @@ export class RegisterComponent {
       return;
     }
 
-    if (this.authService.register(this.username, this.password)) {
+    if (this.authService.register(this.username, this.password, this.email)) {
       this.router.navigate(['/']);
     } else {
       this.errorMessage = 'El usuario ya existe';
