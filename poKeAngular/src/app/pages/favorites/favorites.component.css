@@ -67,3 +67,19 @@ h1 {
     padding: 1.5rem;
   }
 }
+
+.no-results {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  text-align: center;
+  min-height: 200px;
+}
+
+.no-results p {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  color: #666;
+}

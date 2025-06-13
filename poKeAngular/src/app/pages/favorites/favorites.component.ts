@@ -27,6 +27,7 @@ export class FavoritesComponent implements OnInit {
   selectedPokemon: Pokemon | null = null;
   showModal = false;
   isShinyMode = false;
+  noMatchingPokemon = false;
 
   constructor(
     private pokemonService: PokemonService,
@@ -48,12 +49,12 @@ export class FavoritesComponent implements OnInit {
       }
 
       const requests = favoriteIds.map((id) =>
-        this.pokemonService.getPokemon(id).toPromise()
+        this.pokemonService.getPokemonWithGeneration(id).toPromise()
       );
 
       const pokemon = await Promise.all(requests);
-      this.favoritePokemon = pokemon as Pokemon[];
-      this.filteredPokemon = pokemon as Pokemon[];
+      this.favoritePokemon = pokemon as (Pokemon & { generation: string })[];
+      this.filteredPokemon = pokemon as (Pokemon & { generation: string })[];
       this.loading = false;
     } catch (error) {
       console.error('Error loading favorites:', error);
@@ -62,16 +63,27 @@ export class FavoritesComponent implements OnInit {
   }
 
   onFiltersChanged(filters: any) {
+    console.log('Filters applied in favorites:', filters);
+
     this.filteredPokemon = this.favoritePokemon.filter((p) => {
+      const pokemonWithGen = p as Pokemon & { generation: string };
+
       const matchesSearch =
         !filters.search ||
         p.name.toLowerCase().includes(filters.search.toLowerCase());
-
       const matchesType =
         !filters.type || p.types.some((t) => t.type.name === filters.type);
+      const matchesGeneration =
+        !filters.generation || pokemonWithGen.generation === filters.generation;
 
-      return matchesSearch && matchesType;
+      return matchesSearch && matchesType && matchesGeneration;
     });
+
+    this.noMatchingPokemon = this.filteredPokemon.length === 0;
+    console.log(
+      'Filtered Favorite Pokemon count:',
+      this.filteredPokemon.length
+    );
   }
 
   onShinyToggle(isShiny: boolean) {
