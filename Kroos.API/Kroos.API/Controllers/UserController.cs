@@ -8,7 +8,7 @@ using System.Text;
 
 namespace Kroos.API.Controllers;
 
-[Route("api/[controller]")]
+[Route("user")]
 [ApiController]
 public class UsersController : ControllerBase
 {
@@ -19,7 +19,6 @@ public class UsersController : ControllerBase
         _context = context;
     }
 
-    // GET: api/users
     [HttpGet]
     public async Task<ActionResult<IEnumerable<UserDto>>> GetUsers()
     {
@@ -33,7 +32,6 @@ public class UsersController : ControllerBase
             .ToListAsync();
     }
 
-    // GET: api/users/5
     [HttpGet("{id}")]
     public async Task<ActionResult<UserDto>> GetUser(long id)
     {
@@ -52,7 +50,6 @@ public class UsersController : ControllerBase
         };
     }
 
-    // POST: api/users
     [HttpPost]
     public async Task<ActionResult<UserDto>> CreateUser(CreateUserDto createUserDto)
     {
@@ -72,9 +69,7 @@ public class UsersController : ControllerBase
         _context.Users.Add(user);
         await _context.SaveChangesAsync();
 
-        return CreatedAtAction(
-            nameof(GetUser),
-            new { id = user.Id },
+        return Ok(
             new UserDto
             {
                 Id = user.Id,
@@ -83,7 +78,40 @@ public class UsersController : ControllerBase
             });
     }
 
-    // PUT: api/users/5
+    // NUEVO MÉTODO DE LOGIN
+    [HttpPost("login")]
+    public async Task<ActionResult<LoginResponseDto>> Login(LoginDto loginDto)
+    {
+        // Buscar usuario por email
+        var user = await _context.Users
+            .FirstOrDefaultAsync(u => u.Email == loginDto.Email);
+
+        if (user == null)
+        {
+            return BadRequest("Credenciales incorrectas. Por favor, inténtalo de nuevo.");
+        }
+
+        // Verificar contraseña
+        var hashedPassword = HashPassword(loginDto.Password);
+        if (user.Password != hashedPassword)
+        {
+            return BadRequest("Credenciales incorrectas. Por favor, inténtalo de nuevo.");
+        }
+
+        // Login exitoso
+        return Ok(new LoginResponseDto
+        {
+            User = new UserDto
+            {
+                Id = user.Id,
+                Username = user.Username,
+                Email = user.Email
+            },
+            Token = GenerateToken(user),
+            Message = "Login exitoso"
+        });
+    }
+
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdateUser(long id, UpdateUserDto updateUserDto)
     {
@@ -132,7 +160,6 @@ public class UsersController : ControllerBase
         return NoContent();
     }
 
-    // DELETE: api/users/5
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteUser(long id)
     {
@@ -158,5 +185,11 @@ public class UsersController : ControllerBase
         using var sha256 = SHA256.Create();
         var hashedBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
         return Convert.ToBase64String(hashedBytes);
+    }
+
+    private string GenerateToken(User user)
+    {
+        // Token simple para desarrollo (En PRO se usa JWT)
+        return Convert.ToBase64String(Encoding.UTF8.GetBytes($"{user.Id}:{user.Email}:{DateTime.UtcNow}"));
     }
 }

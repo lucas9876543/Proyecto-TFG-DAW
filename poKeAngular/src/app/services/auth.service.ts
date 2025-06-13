@@ -1,61 +1,82 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-import type { User } from '../models/pokemon.model';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { environment } from '../../environments/environment';
+import { User } from '../models/pokemon.model';
+
+export interface CreateUserDto {
+  username: string;
+  email: string;
+  password: string;
+}
+
+export interface UserDto {
+  id: number;
+  username: string;
+  email: string;
+}
+
+export interface LoginCredentials {
+  email: string;
+  password: string;
+}
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
+  private apiUrl = environment.baseUrl;
   private currentUserSubject = new BehaviorSubject<User | null>(null);
   public currentUser$ = this.currentUserSubject.asObservable();
 
-  constructor() {
-    // Check if user is already logged in
+  constructor(private http: HttpClient) {
     const savedUser = localStorage.getItem('currentUser');
     if (savedUser) {
       this.currentUserSubject.next(JSON.parse(savedUser));
     }
   }
 
-  login(usernameOrEmail: string, password: string): boolean {
-    // Get users from localStorage
-    const users = this.getUsers();
-    const user = users.find(
-      (u) =>
-        (u.username === usernameOrEmail || u.email === usernameOrEmail) &&
-        u.password === password
+  login(credentials: LoginCredentials): Observable<any> {
+    return this.http.post(`${this.apiUrl}/user/login`, credentials).pipe(
+      tap((response: any) => {
+        if (response && response.user) {
+          const user: User = response.user;
+          localStorage.setItem('currentUser', JSON.stringify(user));
+          localStorage.setItem('token', response.token || '');
+          this.currentUserSubject.next(user);
+        }
+      })
     );
-
-    if (user) {
-      localStorage.setItem('currentUser', JSON.stringify(user));
-      this.currentUserSubject.next(user);
-      return true;
-    }
-
-    return false;
   }
 
-  register(username: string, password: string, email?: string): boolean {
-    const users = this.getUsers();
+  register(userData: CreateUserDto): Observable<UserDto> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
 
-    // Check if user already exists
-    if (
-      users.find((u) => u.username === username || (email && u.email === email))
-    ) {
-      return false;
-    }
+    return this.http
+      .post<UserDto>(`${this.apiUrl}/user`, userData, { headers })
+      .pipe(
+        tap((response: UserDto) => {
+          console.log('Respuesta del servidor:', response);
 
-    const newUser: User = { username, password, email };
-    users.push(newUser);
-    localStorage.setItem('users', JSON.stringify(users));
+          if (response && response.id) {
+            const user: User = {
+              id: response.id,
+              username: response.username,
+              email: response.email,
+            };
 
-    // Auto-login after registration
-    this.login(username, password);
-    return true;
+            localStorage.setItem('currentUser', JSON.stringify(user));
+            this.currentUserSubject.next(user);
+          }
+        })
+      );
   }
 
   logout(): void {
     localStorage.removeItem('currentUser');
+    localStorage.removeItem('token');
     this.currentUserSubject.next(null);
   }
 
@@ -67,8 +88,25 @@ export class AuthService {
     return this.currentUserSubject.value;
   }
 
-  private getUsers(): User[] {
-    const users = localStorage.getItem('users');
-    return users ? JSON.parse(users) : [];
+  getUsers(): Observable<UserDto[]> {
+    return this.http.get<UserDto[]>(`${this.apiUrl}/user`);
+  }
+
+  getUser(id: number): Observable<UserDto> {
+    return this.http.get<UserDto>(`${this.apiUrl}/user/${id}`);
+  }
+
+  updateUser(id: number, userData: Partial<CreateUserDto>): Observable<void> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+
+    return this.http.put<void>(`${this.apiUrl}/user/${id}`, userData, {
+      headers,
+    });
+  }
+
+  deleteUser(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/user/${id}`);
   }
 }

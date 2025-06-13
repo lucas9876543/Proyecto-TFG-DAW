@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Kroos.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1a9e10bfec700299c6566b7c985632700248c818")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+85a4e7456519df523dc4d436d1b7dc33b80e1750")]
 [assembly: System.Reflection.AssemblyProductAttribute("Kroos.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Kroos.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

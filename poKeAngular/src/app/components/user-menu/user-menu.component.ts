@@ -20,9 +20,11 @@ export class UserMenuComponent implements OnInit, OnDestroy {
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit() {
-    this.userSubscription = this.authService.currentUser$.subscribe((user) => {
-      this.currentUser = user;
-    });
+    this.userSubscription = this.authService.currentUser$.subscribe(
+      (user: User | null) => {
+        this.currentUser = user;
+      }
+    );
 
     document.addEventListener('click', this.closeDropdown.bind(this));
   }

@@ -8,7 +8,7 @@ import type { Pokemon, PokemonSpecies } from '../models/pokemon.model';
 })
 export class PokemonService {
   private readonly API_BASE = 'https://pokeapi.co/api/v2/';
-  private readonly POKEMON_LIMIT = 1010; // Total number of Pokémon
+  private readonly POKEMON_LIMIT = 1010;
 
   constructor(private http: HttpClient) {}
 
@@ -52,8 +52,6 @@ export class PokemonService {
       return this.getAllPokemon();
     }
 
-    // For simplicity, we'll filter on the frontend
-    // In a real app, you might want to implement server-side search
     return this.getAllPokemon().pipe(
       map((pokemon) =>
         pokemon.filter((p) =>

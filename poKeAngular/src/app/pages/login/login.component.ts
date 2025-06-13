@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
+import { catchError, of, tap } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -19,10 +20,21 @@ export class LoginComponent {
   constructor(private authService: AuthService, private router: Router) {}
 
   onSubmit() {
-    if (this.authService.login(this.usernameOrEmail, this.password)) {
-      this.router.navigate(['/']);
-    } else {
-      this.errorMessage = 'Usuario o contraseña incorrectos';
-    }
+    const credentials = {
+      email: this.usernameOrEmail,
+      password: this.password,
+    };
+
+    this.authService
+      .login(credentials)
+      .pipe(
+        tap((_) => this.router.navigate(['/'])),
+        catchError((error) => {
+          this.errorMessage =
+            'Credenciales incorrectas. Por favor, inténtalo de nuevo.';
+          return of(null);
+        })
+      )
+      .subscribe();
   }
 }

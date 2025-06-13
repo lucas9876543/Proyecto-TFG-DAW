@@ -46,7 +46,20 @@ export interface PokemonSpecies {
 }
 
 export interface User {
+  id?: number;
   username: string;
+  email: string;
+  password?: string;
+}
+
+export interface CreateUserDto {
+  username: string;
+  email: string;
   password: string;
-  email?: string;
+}
+
+export interface UserDto {
+  id: number;
+  username: string;
+  email: string;
 }

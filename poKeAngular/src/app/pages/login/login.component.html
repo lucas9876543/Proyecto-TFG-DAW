@@ -3,7 +3,7 @@
     <h1>Iniciar Sesión</h1>
     <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
       <div class="form-group">
-        <label for="usernameOrEmail">Usuario o Email</label>
+        <label for="usernameOrEmail">Email o Usuario</label>
         <input type="text" id="usernameOrEmail" class="form-control" [(ngModel)]="usernameOrEmail"
           name="usernameOrEmail" required>
       </div>
@@ -18,7 +18,7 @@
       </div>
 
       <button type="submit" class="btn btn-primary" [disabled]="!loginForm.form.valid">
-        Ingresar
+        Iniciar Sesión
       </button>
 
       <p class="register-link">
