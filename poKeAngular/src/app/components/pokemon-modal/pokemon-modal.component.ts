@@ -4,8 +4,10 @@ import {
   EventEmitter,
   Input,
   Output,
+  type OnChanges,
   type OnDestroy,
   type OnInit,
+  type SimpleChanges,
 } from '@angular/core';
 import type { Pokemon } from '../../models/pokemon.model';
 import { FavoritesService } from '../../services/favorites.service';
@@ -18,26 +20,46 @@ import { ModelViewerComponent } from '../model-test/model-viewer.component';
   templateUrl: './pokemon-modal.component.html',
   styleUrls: ['./pokemon-modal.component.css'],
 })
-export class PokemonModalComponent implements OnInit, OnDestroy {
+export class PokemonModalComponent implements OnInit, OnDestroy, OnChanges {
   @Input() pokemon!: Pokemon;
   @Input() isShiny = false;
+  @Input() filteredPokemon: Pokemon[] = [];
   @Output() close = new EventEmitter<void>();
-  @Output() navigate = new EventEmitter<number>();
+  @Output() navigate = new EventEmitter<Pokemon>();
 
-  modelSrc: string = '';
-  isModelVisible: boolean = false;
+  modelSrc = '';
+  isModelVisible = false;
+  currentIndex = 0;
 
   constructor(private favoritesService: FavoritesService) {}
 
   ngOnInit() {
     document.addEventListener('keydown', this.handleKeyDown.bind(this));
+    this.updateModelSrc();
+    this.updateCurrentIndex();
+  }
+
+  ngOnDestroy() {
+    document.removeEventListener('keydown', this.handleKeyDown.bind(this));
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['pokemon'] || changes['isShiny']) {
+      this.updateModelSrc();
+      this.updateCurrentIndex();
+    }
+  }
+
+  private updateModelSrc() {
     this.modelSrc = !this.isShiny
       ? `https://raw.githubusercontent.com/Sudhanshu-Ambastha/Pokemon-3D/main/models/opt/regular/${this.pokemon.id}.glb`
       : `https://raw.githubusercontent.com/Sudhanshu-Ambastha/Pokemon-3D/main/models/opt/shiny/${this.pokemon.id}.glb`;
   }
 
-  ngOnDestroy() {
-    document.removeEventListener('keydown', this.handleKeyDown.bind(this));
+  private updateCurrentIndex() {
+    this.currentIndex = this.filteredPokemon.findIndex(
+      (p) => p.id === this.pokemon.id
+    );
   }
 
   get pokemonImage(): string {
@@ -85,6 +107,14 @@ export class PokemonModalComponent implements OnInit, OnDestroy {
     return this.pokemon.types.length > 1;
   }
 
+  get canNavigatePrevious(): boolean {
+    return this.currentIndex > 0;
+  }
+
+  get canNavigateNext(): boolean {
+    return this.currentIndex < this.filteredPokemon.length - 1;
+  }
+
   isFavorite(): boolean {
     return this.favoritesService.isFavorite(this.pokemon.id);
   }
@@ -104,13 +134,17 @@ export class PokemonModalComponent implements OnInit, OnDestroy {
   }
 
   onPrevious(): void {
-    if (this.pokemon.id > 1) {
-      this.navigate.emit(this.pokemon.id - 1);
+    if (this.canNavigatePrevious) {
+      const previousPokemon = this.filteredPokemon[this.currentIndex - 1];
+      this.navigate.emit(previousPokemon);
     }
   }
 
   onNext(): void {
-    this.navigate.emit(this.pokemon.id + 1);
+    if (this.canNavigateNext) {
+      const nextPokemon = this.filteredPokemon[this.currentIndex + 1];
+      this.navigate.emit(nextPokemon);
+    }
   }
 
   getStatName(statName: string): string {
