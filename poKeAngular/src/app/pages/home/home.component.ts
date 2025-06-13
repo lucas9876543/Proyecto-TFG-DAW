@@ -112,9 +112,9 @@ export class HomeComponent implements OnInit {
 
         const newPokemon = await Promise.all(requests);
         this.pokemon = [
-          ...this.pokemon,
           ...(newPokemon as (Pokemon & { generation: string })[]),
         ];
+        this.loadedGenerations.clear();
         this.loadedGenerations.add(generation);
 
         // Re-apply current filters
@@ -140,12 +140,6 @@ export class HomeComponent implements OnInit {
   async onFiltersChanged(filters: any) {
     console.log('Filters applied:', filters);
     this.currentGeneration = filters.generation;
-
-    // If a generation is selected that hasn't been loaded yet, load it
-    if (filters.generation && !this.loadedGenerations.has(filters.generation)) {
-      await this.loadGenerationPokemon(filters.generation);
-      return; // The filter will be re-applied after loading
-    }
 
     this.filteredPokemon = this.pokemon.filter((p) => {
       const pokemonWithGen = p as Pokemon & { generation: string };
