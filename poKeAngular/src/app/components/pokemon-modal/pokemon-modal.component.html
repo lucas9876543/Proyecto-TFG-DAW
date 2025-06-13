@@ -8,7 +8,11 @@
         </button>
 
         <div class="modal-pokemon-info">
+            @if (isModelVisible) {
+            <app-model-viewer [modelSrc]="modelSrc" autoplay camera-controls shadow-intensity="1"></app-model-viewer>
+            } @else {
             <img [src]="pokemonImage" [alt]="pokemon.name">
+            }
 
             <h2>{{ pokemon.name | titlecase }}</h2>
             <p><strong>ID:</strong> #{{ pokemonIdFormatted }}</p>
@@ -40,6 +44,10 @@
             </button>
             <button class="nav-btn" (click)="onNext()">
                 Siguiente →
+            </button>
+
+            <button class="nav-btn" (click)="toggleModel()">
+                {{ isModelVisible ? 'Ver Imagen' : 'Ver Modelo' }}
             </button>
         </div>
     </div>
