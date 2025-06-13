@@ -14,15 +14,12 @@
         <h1>Pokedex</h1>
         <div class="search-container">
             <input type="text" id="search-input" placeholder="Buscar Pokémon...">
-            
             <div class="filter-row">
                 <select id="type-filter">
                     <option value="">Todos los tipos</option>
                 </select>
-                <select id="generation-filter">
-                </select>
+                <select id="generation-filter"></select>
             </div>
-            
             <div class="button-row">
                 <button id="shiny-btn" class="shiny-button">✨</button>
                 <button id="favorites-btn">⭐</button>
@@ -31,8 +28,7 @@
     </header>
 
     <main>
-        <div id="pokedex-container" class="pokedex-grid">
-        </div>
+        <div id="pokedex-container" class="pokedex-grid"></div>
     </main>
 
     <div id="pokemon-modal" class="modal">
@@ -46,6 +42,19 @@
         </div>
     </div>
 
+    <!-- Footer estilizado -->
+    <footer style="background-color: #f8f9fa; padding: 2rem 1rem; text-align: center; font-family: 'Poppins', sans-serif; color: #555; margin-top: 2rem; border-top: 1px solid #ddd;">
+        <div class="footer-container" style="max-width: 900px; margin: 0 auto;">
+            <p style="margin-bottom: 1rem;">&copy; 2025 Pokedex. Todos los derechos reservados.</p>
+            <div class="footer-links" style="display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;">
+                <a href="acerca.html" style="color: #000000; text-decoration: none; font-weight: 500;">Acerca de</a>
+                <a href="contacto.html" style="color: #000000; text-decoration: none; font-weight: 500;">Contacto</a>
+                <a href="terminos.html" style="color: #000000; text-decoration: none; font-weight: 500;">Términos</a>
+                <a href="privacidad.html" style="color: #000000; text-decoration: none; font-weight: 500;">Privacidad</a>
+            </div>
+        </div>
+    </footer>
+
     <script src="js/auth.js"></script>
     <script src="js/filters.js"></script>
     <script src="js/main.js"></script>
@@ -53,7 +62,6 @@
     <script src="js/favorites.js"></script>
     <script src="js/shiny.js"></script>
     <script>
-        // Initialize after DOM is loaded
         document.addEventListener('DOMContentLoaded', function() {
             updateHeader();
         });
