@@ -59,7 +59,7 @@ export class HomeComponent implements OnInit {
     'generation-viii': { start: 810, end: 905 },
     'generation-ix': { start: 906, end: 1010 },
   };
-  loadedGenerations = new Set<string>(['generation-i', 'generation-ii']);
+  loadedGenerations = new Set<string>(['generation-i', 'generation-ix']);
 
   constructor(private pokemonService: PokemonService) {}
 
@@ -177,5 +177,22 @@ export class HomeComponent implements OnInit {
   onModalClose() {
     this.showModal = false;
     this.selectedPokemon = null;
+  }
+
+  onNavigate(pokemonId: number) {
+    const pokemon = this.pokemon.find((p) => p.id === pokemonId);
+    if (pokemon) {
+      this.selectedPokemon = pokemon;
+    } else {
+      // If the Pokemon isn't loaded yet, fetch it
+      this.pokemonService.getPokemonWithGeneration(pokemonId).subscribe(
+        (pokemon) => {
+          this.selectedPokemon = pokemon;
+        },
+        (error) => {
+          console.error(`Error loading Pokemon #${pokemonId}:`, error);
+        }
+      );
+    }
   }
 }
