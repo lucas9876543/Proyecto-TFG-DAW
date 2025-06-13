@@ -36,5 +36,5 @@
 </main>
 
 <app-pokemon-modal *ngIf="showModal && selectedPokemon" [pokemon]="selectedPokemon" [isShiny]="isShinyMode"
-  (close)="onModalClose()">
+  [filteredPokemon]="filteredPokemon" (close)="onModalClose()" (navigate)="onNavigate($event)">
 </app-pokemon-modal>

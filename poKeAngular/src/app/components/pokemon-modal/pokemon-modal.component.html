@@ -39,16 +39,20 @@
         </div>
 
         <div class="modal-navigation">
-            <button class="nav-btn" (click)="onPrevious()" [disabled]="pokemon.id <= 1">
+            <button class="nav-btn" (click)="onPrevious()" [disabled]="!canNavigatePrevious">
                 ← Anterior
             </button>
-            <button class="nav-btn" (click)="onNext()">
+            <button class="nav-btn" (click)="onNext()" [disabled]="!canNavigateNext">
                 Siguiente →
             </button>
 
             <button class="nav-btn" (click)="toggleModel()">
                 {{ isModelVisible ? 'Ver Imagen' : 'Ver Modelo' }}
             </button>
+        </div>
+
+        <div class="navigation-info" *ngIf="filteredPokemon.length > 0">
+            <small>{{ currentIndex + 1 }} de {{ filteredPokemon.length }}</small>
         </div>
     </div>
 </div>
