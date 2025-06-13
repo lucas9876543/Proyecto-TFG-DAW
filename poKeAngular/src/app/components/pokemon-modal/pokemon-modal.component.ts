@@ -9,11 +9,12 @@ import {
 } from '@angular/core';
 import type { Pokemon } from '../../models/pokemon.model';
 import { FavoritesService } from '../../services/favorites.service';
+import { ModelViewerComponent } from '../model-test/model-viewer.component';
 
 @Component({
   selector: 'app-pokemon-modal',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ModelViewerComponent],
   templateUrl: './pokemon-modal.component.html',
   styleUrls: ['./pokemon-modal.component.css'],
 })
@@ -23,10 +24,16 @@ export class PokemonModalComponent implements OnInit, OnDestroy {
   @Output() close = new EventEmitter<void>();
   @Output() navigate = new EventEmitter<number>();
 
+  modelSrc: string = '';
+  isModelVisible: boolean = false;
+
   constructor(private favoritesService: FavoritesService) {}
 
   ngOnInit() {
     document.addEventListener('keydown', this.handleKeyDown.bind(this));
+    this.modelSrc = !this.isShiny
+      ? `https://raw.githubusercontent.com/Sudhanshu-Ambastha/Pokemon-3D/main/models/opt/regular/${this.pokemon.id}.glb`
+      : `https://raw.githubusercontent.com/Sudhanshu-Ambastha/Pokemon-3D/main/models/opt/shiny/${this.pokemon.id}.glb`;
   }
 
   ngOnDestroy() {
@@ -154,5 +161,9 @@ export class PokemonModalComponent implements OnInit, OnDestroy {
       dark: '#705848',
     };
     return typeColors[type] || '#a8a878';
+  }
+
+  toggleModel() {
+    this.isModelVisible = !this.isModelVisible;
   }
 }
