@@ -100,6 +100,37 @@ export class FavoritesComponent implements OnInit {
     this.selectedPokemon = null;
   }
 
+  onNavigate(pokemonId: number) {
+    // Check if the Pokemon is in favorites
+    if (this.favoritesService.isFavorite(pokemonId)) {
+      // If it's in favorites, find it in the loaded favorites
+      const pokemon = this.favoritePokemon.find((p) => p.id === pokemonId);
+      if (pokemon) {
+        this.selectedPokemon = pokemon;
+      } else {
+        // If not loaded yet, fetch it
+        this.pokemonService.getPokemonWithGeneration(pokemonId).subscribe(
+          (pokemon) => {
+            this.selectedPokemon = pokemon;
+          },
+          (error) => {
+            console.error(`Error loading Pokemon #${pokemonId}:`, error);
+          }
+        );
+      }
+    } else {
+      // If not in favorites, fetch it but don't add to favorites list
+      this.pokemonService.getPokemonWithGeneration(pokemonId).subscribe(
+        (pokemon) => {
+          this.selectedPokemon = pokemon;
+        },
+        (error) => {
+          console.error(`Error loading Pokemon #${pokemonId}:`, error);
+        }
+      );
+    }
+  }
+
   goHome() {
     this.router.navigate(['/']);
   }
