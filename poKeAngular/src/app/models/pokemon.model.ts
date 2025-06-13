@@ -18,6 +18,7 @@ export interface Pokemon {
   species: {
     url: string;
   };
+  generation?: string;
 }
 
 export interface PokemonType {
