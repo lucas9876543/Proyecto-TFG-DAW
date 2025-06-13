@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\juanc\\source\\repos\\Kroos.API\\Kroos.API\\Kroos.API.csproj": {}
+    "C:\\Users\\juanc\\OneDrive\\Escritorio\\Proyecto-TFG-DAW\\Kroos.API\\Kroos.API\\Kroos.API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\juanc\\source\\repos\\Kroos.API\\Kroos.API\\Kroos.API.csproj": {
+    "C:\\Users\\juanc\\OneDrive\\Escritorio\\Proyecto-TFG-DAW\\Kroos.API\\Kroos.API\\Kroos.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\juanc\\source\\repos\\Kroos.API\\Kroos.API\\Kroos.API.csproj",
+        "projectUniqueName": "C:\\Users\\juanc\\OneDrive\\Escritorio\\Proyecto-TFG-DAW\\Kroos.API\\Kroos.API\\Kroos.API.csproj",
         "projectName": "Kroos.API",
-        "projectPath": "C:\\Users\\juanc\\source\\repos\\Kroos.API\\Kroos.API\\Kroos.API.csproj",
+        "projectPath": "C:\\Users\\juanc\\OneDrive\\Escritorio\\Proyecto-TFG-DAW\\Kroos.API\\Kroos.API\\Kroos.API.csproj",
         "packagesPath": "C:\\Users\\juanc\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\juanc\\source\\repos\\Kroos.API\\Kroos.API\\obj\\",
+        "outputPath": "C:\\Users\\juanc\\OneDrive\\Escritorio\\Proyecto-TFG-DAW\\Kroos.API\\Kroos.API\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
